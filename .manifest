@@ -1,0 +1,6 @@
+lib/attr_splat.rb
+Rakefile.rb
+README.markdown
+spec/attr_splat_spec.rb
+spec/spec_helper.rb
+.manifest
