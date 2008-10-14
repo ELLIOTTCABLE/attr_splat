@@ -11,17 +11,20 @@ end
 begin
   require 'echoe'
   
-  task :package => :'package:install'
+  task :package => :'package:package'
+  task :install => :'package:install'
   task :manifest => :'package:manifest'
   namespace :package do
     Echoe.new('attr_splat', AttrSplat::Version) do |g|
-      g.project = 'attr_splat'
+      g.project = 'attr_*'
       g.author = ['elliottcable']
       g.email = ['attr_splat@elliottcable.com']
       g.summary = "attr_* puts Ruby Core's attr_accessor, attr_reader, and attr_reader on steroids"
       g.url = 'http://by.elliottcable.name/attr_splat.xhtml'
-      g.development_dependencies = ['echoe >=3.0.1', 'rspec', 'rcov', 'yard', 'stringray']
+      g.development_dependencies = ['echoe >= 3.0.2', 'rspec', 'rcov', 'yard', 'stringray']
       g.manifest_name = '.manifest'
+      g.retain_gemspec = true
+      g.rakefile_name = 'Rakefile.rb'
       g.ignore_pattern = /^\.git\/|^meta\/|\.gemspec/
     end
   
@@ -32,14 +35,6 @@ begin
         puts "\nThe library files are present"
       end
     end
-
-    task :copy_gemspec => [:package] do
-      pkg = Dir['pkg/*'].select {|dir| File.directory? dir}.last
-      mv File.join(pkg, pkg.gsub(/^pkg\//,'').gsub(/\-\d+$/,'.gemspec')), './'
-    end
-
-    desc 'builds a gemspec as GitHub wants it'
-    task :gemspec => [:package, :copy_gemspec, :clobber_package]
   end
   
 rescue LoadError
@@ -134,7 +129,7 @@ end
 
 desc 'Check everything over before commiting'
 task :aok => [:'documentation:generate', :'documentation:open',
-              :'package:manifest', :'package:gemspec',
+              :'package:manifest', :'package:package',
               :'coverage:run', :'coverage:open', :'coverage:verify']
 
 task :ci => [:'documentation:generate', :'coverage:run', :'coverage:verify']

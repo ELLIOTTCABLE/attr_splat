@@ -87,19 +87,22 @@ latest 'release' version from [RubyForge][], using the `gem` command line tool:
 
     sudo gem install attr_splat # You'll be asked for your account password.
 
-Alternatively, you can acquire it (possibly slightly more up-to-date,
-depending on how often I update the gemspec) from GitHub as follows:
+Alternatively, you can acquire a (possibly slightly more up-to-date,
+depending on how often the gemspec is updated) version from GitHub as follows:
 
     # If you've ever done this before, you don't need to do it now - see http://gems.github.com
     gem sources -a http://gems.github.com
     sudo gem install elliottcable-attr_splat # You'll be asked for your account password.
     
 Finally, you can build a gem from the latest source yourself. You need [git][],
-as well as [Rake][] and [echoe][]:
+as well as [Rake][] and elliottcable's clone of [echoe][]:
 
     git clone git://github.com/elliottcable/attr_splat.git
     cd attr_splat
-    rake package:install # You'll be asked for your account password.
+    # If you've ever done this before, you don't need to do it now - see http://gems.github.com
+    gem sources -a http://gems.github.com
+    sudo gem install elliottcable-echoe # You'll be asked for your account password.
+    rake install # You'll be asked for your account password.
 
 [RubyGems]: <http://rubyforge.org/projects/rubygems/> "RubyGems - Ruby package manager"
 [RubyForge]: <http://rubyforge.org/projects/attr_splat/> "attr_* on RubyForge"
