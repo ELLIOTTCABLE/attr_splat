@@ -15,13 +15,13 @@ begin
   task :install => :'package:install'
   task :manifest => :'package:manifest'
   namespace :package do
-    Echoe.new('attr_splat', AttrSplat::Version) do |g|
-      g.project = 'attr_*'
+    Echoe.new('attr_splat', AttrSplat::Version) do |g|; g.name = 'attr_*'
+      g.project = 'attr-splat'
       g.author = ['elliottcable']
-      g.email = ['attr_splat@elliottcable.com']
+      g.email = ['attr_*@elliottcable.com']
       g.summary = "attr_* puts Ruby Core's attr_accessor, attr_reader, and attr_reader on steroids"
       g.url = 'http://by.elliottcable.name/attr_splat.xhtml'
-      g.development_dependencies = ['echoe >= 3.0.2', 'rspec', 'rcov', 'yard', 'stringray']
+      g.development_dependencies = ['elliottcable-echoe >= 3.0.2', 'rspec', 'rcov', 'yard', 'stringray']
       g.manifest_name = '.manifest'
       g.retain_gemspec = true
       g.rakefile_name = 'Rakefile.rb'
@@ -38,7 +38,7 @@ begin
   end
   
 rescue LoadError
-  desc 'You need the `echoe` gem to package attr_*'
+  desc 'You need the `elliottcable-echoe` gem to package attr_*'
   task :package
 end
 
